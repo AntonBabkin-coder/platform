@@ -1,0 +1,51 @@
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #FFF;
+    height: 80px;
+    justify-content: space-between;
+    font-size: 18px;
+    font-family: 'Inter';
+    
+}
+
+.left__side {
+    padding-left: 22px;
+}
+
+.right__side {
+ 
+    display: flex;
+    width: 235px;
+    justify-content: space-around;
+}
+
+.sign__in {
+    cursor: pointer;
+    border: 1px solid transparent;
+    padding: 15px;
+    margin-top: -4px;
+}
+
+.sign__up {
+    cursor: pointer;
+    border: 1px solid transparent;
+    padding: 15px;
+    margin-top: -4px;
+}
+
+.sign__in:hover {
+ 
+
+ border: 1px solid #52C41A;
+ border-radius: 5px;
+ color: #52C41A;
+ padding: 15px;
+ }
+
+.sign__up:hover {
+    border: 1px solid #52C41A;
+ border-radius: 5px;
+ color: #52C41A;
+ padding: 15px;
+}

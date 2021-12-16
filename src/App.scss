@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  
+}
+
+body {
+  width: 100vh;
+  min-height: 100%;
+}
+
+
+.main {
+  background-color: #EBEEF3;
+  padding-top: 25px;
+  // height: 1000px;
+  margin: 0 auto;
+  font-family: 'Inter';
+  h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.pagination {
+ padding-top: 25px;
+  text-align: center;
+}
+
+
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./fonts/Inter-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto-regular';
+  src: url('./fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto-medium';
+  src: url('./fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
