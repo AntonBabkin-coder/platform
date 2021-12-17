@@ -1,15 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+// import { Link } from 'react-router-dom';
+// import { useDispatch, useSelector } from 'react-redux';
 // import cn from 'classnames';
 import { useForm } from 'react-hook-form';
-import { sendNewUser } from '../../actions';
-import classes from './SignUp.module.scss';
+// import { sendNewUser } from '../../actions';
+import classes from './EditProfile.module.scss';
 
-export const SignUp = () => {
-  const dispatch = useDispatch();
-  const { newUser } = useSelector((state) => state);
-
+export const EditProfile = () => {
   // useEffect(() => {
   //   if ('errors' in newUser) {
   //     dispatch(showError());
@@ -20,12 +17,11 @@ export const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
+    // watch,
   } = useForm();
-  // const password = useRef({});
-  // console.log(password.current);
-  // password.current =
-  // watch('password', '');
+  //   const password = useRef({});
+  //   console.log(password.current);
+  //   password.current = watch('password', '');
 
   //   const classesBorders = cn(classes.input__block, { [classes.borders]: errors.repeat__password && [classes.borders] });
   const borders = errors.repeat__password && classes.borders;
@@ -37,16 +33,16 @@ export const SignUp = () => {
 
   return (
     <div className={classes.signUp}>
-      {'errors' in newUser && <div className={classes.error__message}>{newUser.errors}</div>}
+      {/* {'errors' in newUser && <div className={classes.error__message}>{newUser.errors}</div>}
       {/* {userExist && <div className={classes.error__message}>{newUser.errors}</div>} */}
       {/* {'user' in newUser && <div className={classes.ок__message}>Congratulations, the account is registered!</div>} */}
 
-      <h2 className={classes.title}>Create new account</h2>
+      <h2 className={classes.title}>Edit Profile</h2>
       <form
         // className={classes.signUP__form}
         onSubmit={handleSubmit((data) => {
           console.log(data);
-          dispatch(sendNewUser(data));
+          //   dispatch(sendNewUser(data));
         })}
       >
         <div className={classes.input__block}>
@@ -71,15 +67,15 @@ export const SignUp = () => {
         </div>
 
         <div className={classes.input__block}>
-          <label htmlFor="password" className={classes.description__form}>
-            Password
+          <label htmlFor="new__pasword" className={classes.description__form}>
+            New pasword
           </label>
           <input
-            {...register('password', { required: true, maxLength: 40, minLength: 6 })}
+            {...register('new__password', { required: true, maxLength: 40, minLength: 6 })}
             id="password"
             type="password"
             className={borders}
-            placeholder="Password"
+            placeholder="New password"
             // ref={password}
             // onChange={(event) => useRef(event.target.value)}
           />
@@ -88,34 +84,35 @@ export const SignUp = () => {
 
         <div className={classes.input__block}>
           <label htmlFor="repeat__password" className={classes.description__form}>
-            Repeat password
+            Avatar image (url)
           </label>
           <input
-            {...register('repeat__password', { validate: (value) => value === watch('password', '') })}
-            id="repeat__password"
+            {...register('avatar__image')}
+            // { validate: (value) => value === password.current })}
+            id="avatar__image"
             type="password"
             className={borders}
-            placeholder="Repeat password"
+            placeholder="Avatar image"
 
             // onChange={(event) => comparePassword(event.target.value)}
           />
-          {errors.repeat__password && <p>Passwords must match</p>}
+          {/* {errors.repeat__password && <p>Passwords must match</p>}
           {/* {errors.repeat__password !== errors.password && <p>Passwords must match</p>} */}
         </div>
 
-        <div className={classes.agreement}>
+        {/* <div className={classes.agreement}>
           <input {...register('check', { required: true })} id="check" type="checkbox" value="check" />
           <label htmlFor="check">
             <p>I agree to the processing of my personal information</p>
           </label>
-        </div>
+        </div> */}
 
         <button type="submit" className={classes.button}>
-          Create
+          Save
         </button>
-        <div className={classes.signIn}>
+        {/* <div className={classes.signIn}>
           Already have an account?<Link to="/sign-in"> Sign In.</Link>
-        </div>
+        </div> */}
       </form>
     </div>
   );

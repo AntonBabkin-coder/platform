@@ -6,7 +6,12 @@
     justify-content: space-between;
     font-size: 18px;
     font-family: 'Inter';
+
     
+}
+
+.user__name {
+    color: black;
 }
 
 .left__side {
@@ -16,8 +21,53 @@
 .right__side {
  
     display: flex;
-    width: 235px;
+    max-width: 400px;
     justify-content: space-around;
+    .authorization {
+        display: flex;
+        width: 400px;
+        align-items: center;
+    }
+    .main__header {
+        display: flex;
+        
+    }
+    .create__article {
+        color: #52C41A;
+        border: 1px solid #52C41A;
+        padding: 0 5px;
+        margin-right: 25px;
+        border-radius: 5px;
+    }
+    .log__out {
+        outline: none;
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 8px;
+        color: black;
+    }
+
+    .log__out:hover {
+        color: red;
+    }
+
+    .user__name {
+        margin-right: 12px;
+    }
+    .user__img img {
+        margin-right: 27px;
+        transition: all 0.5s ease-out;
+        // transform: scale(1.2);
+    }
+    
+    .user__info {
+        display: flex;
+        align-items: center;
+    }
+    .user__img img:hover {
+        transform: scale(1.1);
+        // transition: 20s ease-in-out;
+    }
 }
 
 .sign__in {

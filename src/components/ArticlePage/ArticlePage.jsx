@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import uuid from 'react-uuid';
 import format from 'date-fns/format';
 import { Spin } from 'antd';
-import { getArticlesPage } from '../../actions';
+import { getArticlesPage, loadingIndicator } from '../../actions';
 import classes from './ArticlePage.module.scss';
 import Vector from './Vector.svg';
 
@@ -19,10 +19,15 @@ export const ArticlePage = ({ itemSlug }) => {
 
   useEffect(() => {
     dispatch(getArticlesPage(itemSlug));
+    dispatch(loadingIndicator());
   }, [dispatch, itemSlug]);
 
   if (!Object.keys(articlePage).length) {
-    return <Spin />;
+    return (
+      <div className={classes.example}>
+        <Spin />
+      </div>
+    );
   }
   // const pop = articles.includes(itemSlug);
   // console.log(pop);
@@ -45,12 +50,7 @@ export const ArticlePage = ({ itemSlug }) => {
       ))}
 
       <div className={classes.text}>
-        <p>
-          {articlePage.body.slice(0, 200)}
-          {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. */}
-        </p>
+        <p>{articlePage.body.slice(0, 200)}</p>
       </div>
       <div className={classes.user}>
         <div className="user__info">

@@ -14,7 +14,8 @@ body {
 .main {
   background-color: #EBEEF3;
   padding-top: 25px;
-  // height: 1000px;
+  min-height: 100vh;
+  height: 100%;
   margin: 0 auto;
   font-family: 'Inter';
   h1, h2, h3, p {
