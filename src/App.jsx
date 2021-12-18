@@ -14,7 +14,7 @@ import { EditProfile } from './components/EditProfile/EditProfile';
 import { getArticles, loadingIndicator, getUser, setCurrentPage } from './actions';
 
 export const App = () => {
-  const { count, user, newUser, currentPage } = useSelector((state) => state);
+  const { count, user, newUser, currentPage, loading } = useSelector((state) => state);
   console.log(count);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -76,15 +76,32 @@ export const App = () => {
             <Route
               path="/articles"
               exact
-              render={() => (
-                <Pagination
-                  size="small"
-                  total={count}
-                  showSizeChanger={false}
-                  onChange={paginate}
-                  current={currentPage}
-                />
-              )}
+              render={() =>
+                !loading && (
+                  <Pagination
+                    size="small"
+                    total={count}
+                    showSizeChanger={false}
+                    onChange={paginate}
+                    current={currentPage}
+                  />
+                )
+              }
+            />
+            <Route
+              path="/"
+              exact
+              render={() =>
+                !loading && (
+                  <Pagination
+                    size="small"
+                    total={count}
+                    showSizeChanger={false}
+                    onChange={paginate}
+                    current={currentPage}
+                  />
+                )
+              }
             />
             {/* // ) : null} */}
           </div>
