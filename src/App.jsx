@@ -11,6 +11,7 @@ import { ArticlePage } from './components/ArticlePage/ArticlePage';
 import { SignUp } from './components/SignUp/SignUp';
 import { SignIn } from './components/SignIn/SignIn';
 import { EditProfile } from './components/EditProfile/EditProfile';
+import { NewArticle } from './components/NewArticle/NewArticle';
 import { getArticles, loadingIndicator, getUser, setCurrentPage } from './actions';
 
 export const App = () => {
@@ -28,26 +29,13 @@ export const App = () => {
   };
 
   useEffect(() => {
-    // localStorage.setItem('user', JSON.stringify(user));
-    // const localUser = localStorage.getItem('user');
     const parseUser = JSON.parse(localStorage.getItem('user'));
     dispatch(getUser(parseUser));
   }, [dispatch]);
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(user));
-    // const localUser = localStorage.getItem('user');
-    // JSON.parse(localStorage.getItem('user'));
-    // console.log(newuser);
   }, [dispatch, user]);
-
-  // if (user.user) {
-  //   return <Redirect to="/articles" />;
-  // }
-  // localStorage.setItem('user', JSON.stringify(user));
-  // const localUser = localStorage.getItem('user');
-  // const newuser = JSON.parse(localUser);
-  // console.log(newuser);
 
   return (
     <Router>
@@ -59,6 +47,8 @@ export const App = () => {
           <Route path="/sign-in" component={SignIn} />
           <Route path="/sign-up" component={SignUp} />
           <Route path="/profile" component={EditProfile} />
+          <Route path="/new-article" component={NewArticle} />
+          <Route path="/articles/:slug/edit" component={NewArticle} />
           <Route
             path="/articles/:slug"
             exact

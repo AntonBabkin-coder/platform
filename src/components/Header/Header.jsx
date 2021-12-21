@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import rectangle from './Rectangle.svg';
+// import rectangle from './Rectangle.svg';
 import classes from './Header.module.scss';
-import { signUp, mainPage, signIn, logOut, getArticles } from '../../actions';
+import { signUp, mainPage, signIn, logOut, getArticles, createArticle } from '../../actions';
 
 export const Header = () => {
   const { user } = useSelector((state) => state);
   // const mainPage = () => <Route path="/articles/" component={Article} />;
   // console.log(mainPage);
   const dispatch = useDispatch();
-
+  // console.log(user.user.image);
   return (
     <div className={classes.header}>
       <div className={classes.left__side}>
@@ -27,14 +27,21 @@ export const Header = () => {
       <div className={classes.right__side}>
         {'user' in user ? (
           <div className={classes.authorization}>
-            <div className={classes.create__article}>Create article</div>
-            {/* </Link> */}
+            <Link
+              to="/new-article"
+              onClick={() => {
+                // localStorage.clear();
+                dispatch(createArticle());
+              }}
+            >
+              <div className={classes.create__article}>Create article</div>
+            </Link>
             <Link to="/profile">
               <div className={classes.user__info}>
                 <div className={classes.user__name}>{user.user.username}</div>
 
                 <div className={classes.user__img}>
-                  <img src={rectangle} alt="person" />
+                  <img src={user.user.image} alt="person" />
                 </div>
               </div>
             </Link>

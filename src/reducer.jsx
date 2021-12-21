@@ -11,6 +11,12 @@ import {
   SIGN_IN,
   LOG_OUT,
   CURRENT_PAGE,
+  CREATE_ARTICLE,
+  EDIT_PAGE,
+  SHOW_MODAL,
+  HIDE_MODAL,
+  LIKES,
+  MAIN_LIKES,
 } from './actions';
 
 const initialState = {
@@ -18,14 +24,15 @@ const initialState = {
   count: 1,
   error: false,
   loading: false,
-  slug: '',
   articlePage: {},
   mainPage: true,
   signUp: false,
+  createArticle: false,
   newUser: {},
   user: {},
-  userExist: false,
   currentPage: 1,
+  editPage: false,
+  showModal: false,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -38,6 +45,7 @@ export const reducer = (state = initialState, action) => {
         loading: false,
         articlePage: {},
       };
+
     case ARTICLE_PAGE:
       return {
         ...state,
@@ -70,7 +78,6 @@ export const reducer = (state = initialState, action) => {
         mainPage: false,
         articlePage: {},
         user: {},
-        // userExist: false,
       };
 
     case SIGN_IN:
@@ -80,15 +87,21 @@ export const reducer = (state = initialState, action) => {
         mainPage: false,
         articlePage: {},
         newUser: {},
-        // userExist: false,
+      };
+
+    case CREATE_ARTICLE:
+      return {
+        ...state,
+        createArticle: true,
+        editPage: false,
+        mainPage: false,
+        articlePage: {},
       };
 
     case LOG_OUT:
       return {
         ...state,
-
         user: {},
-        // userExist: false,
       };
 
     case MAIN_PAGE:
@@ -98,8 +111,15 @@ export const reducer = (state = initialState, action) => {
         mainPage: true,
         articlePage: {},
         currentPage: 1,
-        // user: {},
-        // userExist: false,
+        createArticle: false,
+      };
+
+    case EDIT_PAGE:
+      return {
+        ...state,
+        editPage: true,
+        signUp: false,
+        mainPage: false,
       };
 
     case SHOW_ERROR:
@@ -108,11 +128,36 @@ export const reducer = (state = initialState, action) => {
         userExist: true,
       };
 
+    case SHOW_MODAL:
+      return {
+        ...state,
+        showModal: true,
+      };
+
+    case HIDE_MODAL:
+      return {
+        ...state,
+        showModal: false,
+      };
+
     case ERROR:
       return {
         ...state,
-        error: action.payload,
+        error: true,
       };
+
+    case LIKES:
+      return {
+        ...state,
+      };
+
+    case MAIN_LIKES:
+      return {
+        ...state,
+        articles: [...state.articles.map((item) => (item.slug === action.article.slug ? action.article : item))],
+        articlePage: action.article,
+      };
+
     case LOADING:
       return {
         ...state,

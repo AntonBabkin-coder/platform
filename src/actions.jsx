@@ -8,12 +8,28 @@ export const getUser = (res) => ({ type: 'USER', res });
 export const showError = () => ({ type: 'SHOW_ERROR' });
 export const signIn = () => ({ type: 'SIGN_IN' });
 export const signUp = () => ({ type: 'SIGN_UP' });
+export const createArticle = () => ({ type: 'CREATE_ARTICLE' });
 export const logOut = () => ({ type: 'LOG_OUT' });
+export const editPage = () => ({ type: 'EDIT_PAGE' });
+export const changeMessage = (payload) => ({ type: 'MESSAGE', payload });
+export const showModalPage = () => ({ type: 'SHOW_MODAL' });
+export const hideModalPage = () => ({ type: 'HIDE_MODAL' });
+export const getLikes = (like) => ({ type: 'LIKES', like });
+export const saveLikeMainPage = (article) => ({ type: 'MAIN_LIKES', article });
+//  ({ type: 'MAIN_LIKES', article });
+// saveLikeMainPage
 
 export const setCurrentPage = (pageNumber) => ({ type: 'CURRENT_PAGE', pageNumber });
 
+export const MAIN_LIKES = 'MAIN_LIKES';
+export const LIKES = 'LIKES';
+export const HIDE_MODAL = 'HIDE_MODAL';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const MESSAGE = 'MESSAGE';
 export const CURRENT_PAGE = 'CURRENT_PAGE';
+export const EDIT_PAGE = 'EDIT_PAGE';
 export const LOG_OUT = 'LOG_OUT';
+export const CREATE_ARTICLE = 'CREATE_ARTICLE';
 export const USER = 'USER';
 export const SHOW_ERROR = 'SHOW_ERROR';
 export const NEW_USER = 'NEW_USER';
@@ -27,6 +43,7 @@ export const LOADING = 'LOADING';
 
 export const getArticles = (pageNumber) => (dispatch) => {
   console.log(pageNumber);
+
   fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles?limit=5&offset=${pageNumber}`)
     .then((res) => res.json())
     .then((res) => dispatch(saveArticles(res.articles, res.articlesCount)))
@@ -74,4 +91,114 @@ export const sendUser = (user) => (dispatch) => {
     .then((res) => res.json())
     .then((res) => dispatch(getUser(res)))
     .catch(() => dispatch(errorIndicator()));
+};
+
+export const sendEditUser = (user, currentUser) => (dispatch) => {
+  console.log(user);
+  console.log(currentUser);
+  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/user/`, {
+    method: 'PUT',
+
+    headers: {
+      Authorization: `Token ${currentUser.user.token}`,
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify({
+      user: {
+        username: user.username,
+        email: user.email,
+        password: user.password,
+        image: user.image,
+      },
+    }),
+  })
+    .then((res) => res.json())
+    .then((res) => dispatch(getUser(res)));
+  console.log(user);
+  console.log(currentUser.user.token);
+  //  dispatch(getUser(res)));
+  // .catch(() => dispatch(errorIndicator()));
+};
+
+export const sendNewArticle = (data, user) => (dispatch) => {
+  console.log(data);
+  console.log(user);
+  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Token ${user.user.token}` },
+    body: JSON.stringify({
+      article: data,
+    }),
+  })
+    .then((res) => res.json())
+    // .then((res) => console.log(res))
+    //  dispatch(saveArticles(res.articles, res.articlesCount)))
+    .catch(() => dispatch(errorIndicator()));
+  console.log(user.user.token);
+};
+
+export const sendEditArticle = (articlePage, user) => (dispatch) => {
+  console.log(articlePage);
+  // console.log(currentUser);
+  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles/${articlePage.slug}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Token ${user.user.token}`,
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify({
+      article: articlePage,
+    }),
+  }).catch(() => dispatch(errorIndicator()));
+};
+
+export const deleteArticle = (articlePage, user) => (dispatch) => {
+  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles/${articlePage.slug}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Token ${user.user.token}`,
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    // body: JSON.stringify({
+    //   article: articlePage,
+    // }),
+  }).catch(() => dispatch(errorIndicator()));
+};
+
+export const sendLike = (item, user) => (dispatch) => {
+  console.log(item);
+  // console.log(user);
+  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles/${item.slug}/favorite`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Token ${user.user.token}` },
+    body: JSON.stringify({
+      article: item,
+    }),
+  })
+    .then((res) => res.json())
+    // .then((res) => console.log(res))
+    .then((res) => dispatch(saveArticlePage(res.article)))
+
+    //  dispatch(saveArticles(res.articles, res.articlesCount)))
+    .catch(() => dispatch(errorIndicator()));
+  console.log(user.user.token);
+};
+
+export const sendLikeMainPage = (item, user) => (dispatch) => {
+  console.log(item);
+  // console.log(user);
+  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles/${item.slug}/favorite`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Token ${user.user.token}` },
+    body: JSON.stringify({
+      article: item,
+    }),
+  })
+    .then((res) => res.json())
+    // .then((res) => console.log(res))
+    .then((res) => dispatch(saveLikeMainPage(res.article)))
+
+    //  dispatch(saveArticles(res.articles, res.articlesCount)))
+    .catch(() => dispatch(errorIndicator()));
+  console.log(user.user.token);
 };
