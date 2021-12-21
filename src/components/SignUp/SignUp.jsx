@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import cn from 'classnames';
 import { useForm } from 'react-hook-form';
 import { sendNewUser } from '../../actions';
 import classes from './SignUp.module.scss';
@@ -10,42 +9,21 @@ export const SignUp = () => {
   const dispatch = useDispatch();
   const { newUser } = useSelector((state) => state);
 
-  // useEffect(() => {
-  //   if ('errors' in newUser) {
-  //     dispatch(showError());
-  //   }
-  // }, [dispatch, newUser]);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
   } = useForm();
-  // const password = useRef({});
-  // console.log(password.current);
-  // password.current =
-  // watch('password', '');
 
-  //   const classesBorders = cn(classes.input__block, { [classes.borders]: errors.repeat__password && [classes.borders] });
   const borders = errors.repeat__password && classes.borders;
-
-  // validate: (value) => value === watch('password', '')
-  // if ('errors' in newUser) {
-  //   dispatch(showError());
-  // }
 
   return (
     <div className={classes.signUp}>
       {'errors' in newUser && <div className={classes.error__message}>{newUser.errors}</div>}
-      {/* {userExist && <div className={classes.error__message}>{newUser.errors}</div>} */}
-      {/* {'user' in newUser && <div className={classes.ок__message}>Congratulations, the account is registered!</div>} */}
-
       <h2 className={classes.title}>Create new account</h2>
       <form
-        // className={classes.signUP__form}
         onSubmit={handleSubmit((data) => {
-          console.log(data);
           dispatch(sendNewUser(data));
         })}
       >
@@ -80,8 +58,6 @@ export const SignUp = () => {
             type="password"
             className={borders}
             placeholder="Password"
-            // ref={password}
-            // onChange={(event) => useRef(event.target.value)}
           />
           {errors.password && <p>Your password needs to be at least 6 characters.</p>}
         </div>
@@ -96,11 +72,8 @@ export const SignUp = () => {
             type="password"
             className={borders}
             placeholder="Repeat password"
-
-            // onChange={(event) => comparePassword(event.target.value)}
           />
           {errors.repeat__password && <p>Passwords must match</p>}
-          {/* {errors.repeat__password !== errors.password && <p>Passwords must match</p>} */}
         </div>
 
         <div className={classes.agreement}>

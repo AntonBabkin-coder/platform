@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './App.scss';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Pagination } from 'antd';
@@ -16,15 +15,17 @@ import { getArticles, loadingIndicator, getUser, setCurrentPage } from './action
 
 export const App = () => {
   const { count, user, newUser, currentPage, loading } = useSelector((state) => state);
-  console.log(count);
   const dispatch = useDispatch();
+
+  console.log(user);
+  const { token } = user;
   useEffect(() => {
-    dispatch(getArticles(0));
+    dispatch(getArticles(0, token));
     dispatch(loadingIndicator());
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   const paginate = (pageNumber) => {
-    dispatch(getArticles((pageNumber - 1) * 5));
+    dispatch(getArticles((pageNumber - 1) * 5, token));
     dispatch(setCurrentPage(pageNumber));
   };
 
@@ -53,7 +54,6 @@ export const App = () => {
             path="/articles/:slug"
             exact
             render={({ match }) => {
-              console.log(match);
               const { slug } = match.params;
               return <ArticlePage itemSlug={slug} />;
             }}
@@ -62,7 +62,6 @@ export const App = () => {
           {newUser.user && <Redirect to="/sign-in" />}
 
           <div className="pagination">
-            {/* {mainPage && !loading ? ( */}
             <Route
               path="/articles"
               exact
@@ -93,7 +92,6 @@ export const App = () => {
                 )
               }
             />
-            {/* // ) : null} */}
           </div>
         </div>
       </div>

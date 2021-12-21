@@ -22,7 +22,6 @@ export const EditProfile = () => {
 
       <form
         onSubmit={handleSubmit((data) => {
-          console.log(data);
           dispatch(sendEditUser(data, user));
         })}
       >
@@ -44,7 +43,6 @@ export const EditProfile = () => {
             Email address
           </label>
           <input {...register('email')} id="email" type="email" placeholder="Email address" />
-          {/* {errors.email && <p>It is requared</p>} */}
         </div>
 
         <div className={classes.input__block}>
@@ -57,8 +55,6 @@ export const EditProfile = () => {
             type="password"
             className={borders}
             placeholder="New password"
-            // ref={password}
-            // onChange={(event) => useRef(event.target.value)}
           />
           {errors.password && <p>Your password needs to be at least 6 characters.</p>}
         </div>
@@ -69,17 +65,13 @@ export const EditProfile = () => {
           </label>
           <input
             {...register('image')}
-            // { validate: (value) => value === password.current })}
             id="image"
             type="text"
             alt="image"
             className={borders}
             placeholder="Avatar image"
           />
-          {/* {errors.repeat__password && <p>Passwords must match</p>}
-          {/* {errors.repeat__password !== errors.password && <p>Passwords must match</p>} */}
         </div>
-
         <button type="submit" className={classes.button}>
           Save
         </button>

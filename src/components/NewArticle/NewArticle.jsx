@@ -1,8 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import cn from 'classnames';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { sendNewArticle, sendEditArticle } from '../../actions';
 import classes from './NewArticle.module.scss';
@@ -11,11 +8,6 @@ export const NewArticle = () => {
   const dispatch = useDispatch();
   const { user, articlePage, editPage } = useSelector((state) => state);
 
-  console.log(articlePage.tagList);
-
-  // const pop =  tagList: articlePage.tagList.map((tag) => ({ tagName: tag }));
-  // console.log(pop);
-
   const {
     control,
     register,
@@ -23,13 +15,8 @@ export const NewArticle = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      // title: articlePage.title,
-      // description: articlePage.description,
-      // body: articlePage.body,
       ...articlePage,
       tagList: articlePage.tagList && [...articlePage.tagList.map((tag) => ({ tagName: tag }))],
-      // reduce((acc, tag) => (tag.tagName.length ? [...acc, tag.tagName] : acc), []),
-      // ({ tagName: tag })),
     },
   });
 
@@ -39,7 +26,6 @@ export const NewArticle = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     if (editPage) {
       dispatch(
         sendEditArticle(
@@ -110,8 +96,6 @@ export const NewArticle = () => {
             <div className={classes.input__delete}>
               <ul>
                 {fields.map((item, index) => (
-                  // return (
-
                   <li key={item.id}>
                     <input
                       {...register(`tagList.${index}.tagName`)}
@@ -119,13 +103,6 @@ export const NewArticle = () => {
                       type="text"
                       className={classes.tag}
                     />
-                    {console.log(index)}
-                    {/* <Controller
-                      render={({ field }) => <input {...field} />}
-                      name={`test.${index}.lastName`}
-                      control={control}
-                    /> */}
-
                     <button type="button" className={classes.delete__tag} onClick={() => remove(index)}>
                       Delete
                     </button>

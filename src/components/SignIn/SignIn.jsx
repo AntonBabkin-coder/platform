@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-// import cn from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { sendUser } from '../../actions';
@@ -14,16 +12,13 @@ export const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
-    // watch,
   } = useForm();
 
   return (
     <div className={classes.signIn}>
       <h2 className={classes.title}>Sign In</h2>
       <form
-        // className={classes.signUP__form}
         onSubmit={handleSubmit((data) => {
-          console.log(data);
           dispatch(sendUser(data));
         })}
       >
@@ -46,7 +41,6 @@ export const SignIn = () => {
             placeholder="Password"
           />
           {user.errors && <p>check your username or password</p>}
-          {/* {!user.user && <p>check your username or password</p>} */}
           {errors.password && <p>Your password needs to be at least 6 characters.</p>}
         </div>
 

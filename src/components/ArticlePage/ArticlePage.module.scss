@@ -2,8 +2,7 @@
     position: relative;
     max-width: 940px;
     min-width: 100vh;
-    height: 140px;
-    background-color: #FFF;
+     background-color: #FFF;
     margin: 0 auto;
     padding: 15px 20px;
     border-radius: 5px;
@@ -12,35 +11,35 @@
 
     
 
-label {
-    // width: 60px;
-    display: flex;
-    cursor: pointer;
-    padding-left: 1.2em;
-    input {
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
+    label {
+    
+        display: flex;
+        cursor: pointer;
+        padding-left: 1.2em;
+        input {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
 
-    }
+        }
 
-    .custom__checkbox {
-        position: absolute;
-       width: 16px;
-       height: 17px;
-       margin-left: -1.4em;
-    background-repeat: no-repeat;
-        background-position: center center;
-       background-image:   url('./Vector.svg');
+        .custom__checkbox {
+            position: absolute;
+        width: 16px;
+        height: 17px;
+        margin-left: -1.4em;
+        background-repeat: no-repeat;
+            background-position: center center;
+        background-image:   url('./Vector.svg');
+        }
+        input:checked + .custom__checkbox {
+            background-image:   url('./Hart.svg');
+        }
+    
     }
-    input:checked + .custom__checkbox {
-        background-image:   url('./Hart.svg');
-    }
-
-}
 
     h2 {
         color: #1890FF;
@@ -60,10 +59,7 @@ label {
         margin-bottom: 5px;
         width: 700px;
     }
-    .like {
-       
-        
-    }
+   
     .total__like {
         font-size: 12px;
     }
@@ -71,6 +67,9 @@ label {
         width: 685px;
         font-size: 12px;
         line-height: 22px;
+        p {
+            width: 600px;
+        }
     }
     .user {
         display: flex;
@@ -92,8 +91,7 @@ label {
             color: grey;
         }
         .user__img {
-            // width: 45px;
-            // height: 45px;
+            
             img {
                 width: 45px;
                 height: 45px;

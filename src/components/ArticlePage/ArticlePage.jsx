@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import uuid from 'react-uuid';
 import format from 'date-fns/format';
@@ -16,14 +15,10 @@ import {
   sendLike,
 } from '../../actions';
 import classes from './ArticlePage.module.scss';
-// import Vector from './Vector.svg';
 import Atancion from './atancion.svg';
-
-// import { Article } from '../ArticleList/ArticleList';
 
 export const ArticlePage = ({ itemSlug }) => {
   const dispatch = useDispatch();
-  console.log(itemSlug);
 
   const { articlePage, user, showModal } = useSelector((state) => state);
 
@@ -39,9 +34,6 @@ export const ArticlePage = ({ itemSlug }) => {
       </div>
     );
   }
-  // const pop = articles.includes(itemSlug);
-  // console.log(pop);
-  // console.log(articlePage);
 
   return (
     <div className={classes.article}>
@@ -60,13 +52,11 @@ export const ArticlePage = ({ itemSlug }) => {
           </label>
         </div>
       </div>
-      {/* <div className={classes.tag}> */}
       {articlePage.tagList.map((tag) => (
         <div key={uuid()} className={classes.tag}>
           {tag}
         </div>
       ))}
-
       <div className={classes.text}>
         <p>{articlePage.body}</p>
       </div>
@@ -80,7 +70,7 @@ export const ArticlePage = ({ itemSlug }) => {
             <img src={articlePage.author.image} alt="person" />
           </div>
         </div>
-        {user.user && user.user.username === articlePage.author.username && (
+        {user && user.username === articlePage.author.username && (
           <div>
             <button type="button" className={classes.delete} onClick={() => dispatch(showModalPage())}>
               Delete

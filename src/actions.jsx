@@ -11,14 +11,10 @@ export const signUp = () => ({ type: 'SIGN_UP' });
 export const createArticle = () => ({ type: 'CREATE_ARTICLE' });
 export const logOut = () => ({ type: 'LOG_OUT' });
 export const editPage = () => ({ type: 'EDIT_PAGE' });
-export const changeMessage = (payload) => ({ type: 'MESSAGE', payload });
 export const showModalPage = () => ({ type: 'SHOW_MODAL' });
 export const hideModalPage = () => ({ type: 'HIDE_MODAL' });
 export const getLikes = (like) => ({ type: 'LIKES', like });
 export const saveLikeMainPage = (article) => ({ type: 'MAIN_LIKES', article });
-//  ({ type: 'MAIN_LIKES', article });
-// saveLikeMainPage
-
 export const setCurrentPage = (pageNumber) => ({ type: 'CURRENT_PAGE', pageNumber });
 
 export const MAIN_LIKES = 'MAIN_LIKES';
@@ -41,15 +37,11 @@ export const ARTICLES = 'ARTICLES';
 export const ERROR = 'ERROR';
 export const LOADING = 'LOADING';
 
-export const getArticles = (pageNumber) => (dispatch) => {
-  console.log(pageNumber);
-
-  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzAwLCJ1c2VybmFtZSI6Im1hZXN0cm8iLCJleHAiOjE2NDUwMjEzNTEsImlhdCI6MTYzOTgzNzM1MX0.cr5P1ANAcxkrG45AkekVgKr6NDz0wcq4jINYmQIJmXA"
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles?limit=5&offset=${pageNumber}`, {
+export const getArticles = (pageNumber, token) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API}articles?limit=5&offset=${pageNumber}`, {
     method: 'GET',
     headers: {
-      Authorization:
-        'Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzAwLCJ1c2VybmFtZSI6Im1hZXN0cm8iLCJleHAiOjE2NDUwMjEzNTEsImlhdCI6MTYzOTgzNzM1MX0.cr5P1ANAcxkrG45AkekVgKr6NDz0wcq4jINYmQIJmXA',
+      Authorization: `Token ${token}`,
       'Content-Type': 'application/json;charset=utf-8',
     },
   })
@@ -59,12 +51,10 @@ export const getArticles = (pageNumber) => (dispatch) => {
 };
 
 export const getArticlesPage = (slug) => (dispatch) => {
-  console.log(slug);
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles/${slug}`, {
+  fetch(`${process.env.REACT_APP_API}articles/${slug}`, {
     method: 'GET',
     headers: {
-      Authorization:
-        'Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzAwLCJ1c2VybmFtZSI6Im1hZXN0cm8iLCJleHAiOjE2NDUwMjEzNTEsImlhdCI6MTYzOTgzNzM1MX0.cr5P1ANAcxkrG45AkekVgKr6NDz0wcq4jINYmQIJmXA',
+      Authorization: process.env.REACT_APP_TOKEN,
       'Content-Type': 'application/json;charset=utf-8',
     },
   })
@@ -74,8 +64,7 @@ export const getArticlesPage = (slug) => (dispatch) => {
 };
 
 export const sendNewUser = (user) => (dispatch) => {
-  console.log(user);
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/users/`, {
+  fetch(`${process.env.REACT_APP_API}users/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json;charset=utf-8' },
     body: JSON.stringify({
@@ -92,73 +81,50 @@ export const sendNewUser = (user) => (dispatch) => {
 };
 
 export const sendUser = (user) => (dispatch) => {
-  console.log(user);
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/users/login/`, {
+  fetch(`${process.env.REACT_APP_API}users/login/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json;charset=utf-8' },
     body: JSON.stringify({
-      user: {
-        email: user.email,
-        password: user.password,
-      },
+      user,
     }),
   })
     .then((res) => res.json())
-    .then((res) => dispatch(getUser(res)))
+    .then((res) => dispatch(getUser(res.user)))
     .catch(() => dispatch(errorIndicator()));
 };
 
 export const sendEditUser = (user, currentUser) => (dispatch) => {
-  console.log(user);
-  console.log(currentUser);
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/user/`, {
+  fetch(`${process.env.REACT_APP_API}user/`, {
     method: 'PUT',
-
     headers: {
-      Authorization: `Token ${currentUser.user.token}`,
+      Authorization: `Token ${currentUser.token}`,
       'Content-Type': 'application/json;charset=utf-8',
     },
     body: JSON.stringify({
-      user: {
-        username: user.username,
-        email: user.email,
-        password: user.password,
-        image: user.image,
-      },
+      user,
     }),
   })
     .then((res) => res.json())
-    .then((res) => dispatch(getUser(res)));
-  console.log(user);
-  console.log(currentUser.user.token);
-  //  dispatch(getUser(res)));
-  // .catch(() => dispatch(errorIndicator()));
+    .then((res) => dispatch(getUser(res.user)));
 };
 
 export const sendNewArticle = (data, user) => (dispatch) => {
-  console.log(data);
-  console.log(user);
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles`, {
+  fetch(`${process.env.REACT_APP_API}articles`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Token ${user.user.token}` },
+    headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Token ${user.token}` },
     body: JSON.stringify({
       article: data,
     }),
   })
     .then((res) => res.json())
-    // .then((res) => console.log(res))
-    //  dispatch(saveArticles(res.articles, res.articlesCount)))
     .catch(() => dispatch(errorIndicator()));
-  console.log(user.user.token);
 };
 
 export const sendEditArticle = (articlePage, user) => (dispatch) => {
-  console.log(articlePage);
-  // console.log(currentUser);
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles/${articlePage.slug}`, {
+  fetch(`${process.env.REACT_APP_API}articles/${articlePage.slug}`, {
     method: 'PUT',
     headers: {
-      Authorization: `Token ${user.user.token}`,
+      Authorization: `Token ${user.token}`,
       'Content-Type': 'application/json;charset=utf-8',
     },
     body: JSON.stringify({
@@ -168,52 +134,37 @@ export const sendEditArticle = (articlePage, user) => (dispatch) => {
 };
 
 export const deleteArticle = (articlePage, user) => (dispatch) => {
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles/${articlePage.slug}`, {
+  fetch(`${process.env.REACT_APP_API}articles/${articlePage.slug}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Token ${user.user.token}`,
       'Content-Type': 'application/json;charset=utf-8',
     },
-    // body: JSON.stringify({
-    //   article: articlePage,
-    // }),
   }).catch(() => dispatch(errorIndicator()));
 };
 
 export const sendLike = (item, user) => (dispatch) => {
-  console.log(item);
-  // console.log(user);
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles/${item.slug}/favorite`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Token ${user.user.token}` },
+  fetch(`${process.env.REACT_APP_API}articles/${item.slug}/favorite`, {
+    method: !item.favorited ? 'POST' : 'DELETE',
+    headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Token ${user.token}` },
     body: JSON.stringify({
       article: item,
     }),
   })
     .then((res) => res.json())
-    // .then((res) => console.log(res))
     .then((res) => dispatch(saveArticlePage(res.article)))
-
-    //  dispatch(saveArticles(res.articles, res.articlesCount)))
     .catch(() => dispatch(errorIndicator()));
-  console.log(user.user.token);
 };
 
 export const sendLikeMainPage = (item, user) => (dispatch) => {
-  console.log(item);
-  // console.log(user);
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles/${item.slug}/favorite`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Token ${user.user.token}` },
+  fetch(`${process.env.REACT_APP_API}articles/${item.slug}/favorite`, {
+    method: !item.favorited ? 'POST' : 'DELETE',
+    headers: { 'Content-Type': 'application/json;charset=utf-8', Authorization: `Token ${user.token}` },
     body: JSON.stringify({
       article: item,
     }),
   })
     .then((res) => res.json())
-    // .then((res) => console.log(res))
     .then((res) => dispatch(saveLikeMainPage(res.article)))
-
-    //  dispatch(saveArticles(res.articles, res.articlesCount)))
     .catch(() => dispatch(errorIndicator()));
-  console.log(user.user.token);
 };
