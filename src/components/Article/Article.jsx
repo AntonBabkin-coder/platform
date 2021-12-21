@@ -12,7 +12,7 @@ export const Article = () => {
   const dispatch = useDispatch();
 
   if (error) {
-    return <Alert message="ОШИБКА СЕРВЕРА" description="ОБНОВИТЕ СТРАНИЦУ" type="error" showIcon />;
+    return <Alert message="ВОЙДИТЕ В АККАУНТ" description="ОБНОВИТЕ СТРАНИЦУ" type="error" showIcon />;
   }
 
   const Spiner = () => (
