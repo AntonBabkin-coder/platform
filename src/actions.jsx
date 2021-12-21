@@ -44,7 +44,15 @@ export const LOADING = 'LOADING';
 export const getArticles = (pageNumber) => (dispatch) => {
   console.log(pageNumber);
 
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles?limit=5&offset=${pageNumber}`)
+  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzAwLCJ1c2VybmFtZSI6Im1hZXN0cm8iLCJleHAiOjE2NDUwMjEzNTEsImlhdCI6MTYzOTgzNzM1MX0.cr5P1ANAcxkrG45AkekVgKr6NDz0wcq4jINYmQIJmXA"
+  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles?limit=5&offset=${pageNumber}`, {
+    method: 'GET',
+    headers: {
+      Authorization:
+        'Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzAwLCJ1c2VybmFtZSI6Im1hZXN0cm8iLCJleHAiOjE2NDUwMjEzNTEsImlhdCI6MTYzOTgzNzM1MX0.cr5P1ANAcxkrG45AkekVgKr6NDz0wcq4jINYmQIJmXA',
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  })
     .then((res) => res.json())
     .then((res) => dispatch(saveArticles(res.articles, res.articlesCount)))
     .catch(() => dispatch(errorIndicator()));
@@ -52,7 +60,14 @@ export const getArticles = (pageNumber) => (dispatch) => {
 
 export const getArticlesPage = (slug) => (dispatch) => {
   console.log(slug);
-  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles/${slug}`)
+  fetch(`http://cirosantilli-realworld-next.herokuapp.com/api/articles/${slug}`, {
+    method: 'GET',
+    headers: {
+      Authorization:
+        'Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzAwLCJ1c2VybmFtZSI6Im1hZXN0cm8iLCJleHAiOjE2NDUwMjEzNTEsImlhdCI6MTYzOTgzNzM1MX0.cr5P1ANAcxkrG45AkekVgKr6NDz0wcq4jINYmQIJmXA',
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  })
     .then((res) => res.json())
     .then((res) => dispatch(saveArticlePage(res.article)))
     .catch(() => dispatch(errorIndicator()));
