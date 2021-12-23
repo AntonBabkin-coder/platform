@@ -8,43 +8,42 @@ export const USER = 'USER';
 export const LOG_OUT = 'LOG_OUT';
 export const NEW_USER = 'NEW_USER';
 
+export const getResourceUser = (url, options) =>
+	fetch(`${process.env.REACT_APP_API}${url}`, options).then((res) => res.json());
+
 export const sendNewUser = (user) => (dispatch) => {
-  fetch(`${process.env.REACT_APP_API}users/`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json;charset=utf-8' },
-    body: JSON.stringify({
-      user,
-    }),
-  })
-    .then((res) => res.json())
-    .then((res) => dispatch(getNewUser(res)))
-    .catch(() => dispatch(errorIndicator()));
+	getResourceUser(`users/`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json;charset=utf-8' },
+		body: JSON.stringify({
+			user,
+		}),
+	})
+		.then((res) => dispatch(getNewUser(res.user)))
+		.catch(() => dispatch(errorIndicator()));
 };
 
 export const sendUser = (user) => (dispatch) => {
-  fetch(`${process.env.REACT_APP_API}users/login/`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json;charset=utf-8' },
-    body: JSON.stringify({
-      user,
-    }),
-  })
-    .then((res) => res.json())
-    .then((res) => dispatch(getUser(res.user)))
-    .catch(() => dispatch(errorIndicator()));
+	getResourceUser(`users/login/`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json;charset=utf-8' },
+		body: JSON.stringify({
+			user,
+		}),
+	})
+		.then((res) => dispatch(getUser(res.user)))
+		.catch(() => dispatch(errorIndicator()));
 };
 
 export const sendEditUser = (user, currentUser) => (dispatch) => {
-  fetch(`${process.env.REACT_APP_API}user/`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `Token ${currentUser.token}`,
-      'Content-Type': 'application/json;charset=utf-8',
-    },
-    body: JSON.stringify({
-      user,
-    }),
-  })
-    .then((res) => res.json())
-    .then((res) => dispatch(getUser(res.user)));
+	getResourceUser(`user/`, {
+		method: 'PUT',
+		headers: {
+			Authorization: `Token ${currentUser.token}`,
+			'Content-Type': 'application/json;charset=utf-8',
+		},
+		body: JSON.stringify({
+			user,
+		}),
+	}).then((res) => dispatch(getUser(res.user)));
 };

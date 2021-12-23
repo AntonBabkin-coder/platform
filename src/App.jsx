@@ -64,7 +64,7 @@ export const App = () => {
 						}}
 					/>
 					{user.username && <Redirect to="/articles" />}
-					{newUser.userName && <Redirect to="/sign-in" />}
+					{newUser.username && <Redirect to="/sign-in" />}
 
 					<div className="pagination">
 						<Route
