@@ -5,6 +5,7 @@ import classes from './Header.module.scss';
 import { signUp, mainPage, signIn, createArticle } from '../../Actions/actionPages';
 import { getArticles } from '../../Actions/actionArticles';
 import { logOut } from '../../Actions/actionUser';
+import smile from './smile.png';
 import * as selectors from '../../Selectors/Selectors';
 
 export const Header = memo(() => {
@@ -39,7 +40,7 @@ export const Header = memo(() => {
 							<div className={classes.user__info}>
 								<div className={classes.user__name}>{user.username}</div>
 								<div className={classes.user__img}>
-									<img src={user.image} alt="person" />
+									<img src={user.image || smile} alt="person" />
 								</div>
 							</div>
 						</Link>
