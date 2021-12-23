@@ -63,8 +63,8 @@ export const App = () => {
 							return <ArticlePage itemSlug={slug} />;
 						}}
 					/>
-					{user.user && <Redirect to="/articles" />}
-					{newUser.user && <Redirect to="/sign-in" />}
+					{user.username && <Redirect to="/articles" />}
+					{newUser.userName && <Redirect to="/sign-in" />}
 
 					<div className="pagination">
 						<Route
