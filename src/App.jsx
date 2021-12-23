@@ -10,14 +10,18 @@ import { ArticlePage } from './components/ArticlePage/ArticlePage';
 import { SignUp } from './components/SignUp/SignUp';
 import { SignIn } from './components/SignIn/SignIn';
 import { EditProfile } from './components/EditProfile/EditProfile';
-import { NewArticle } from './components/NewArticle/NewArticle';
-import { getArticles, loadingIndicator, getUser, setCurrentPage } from './actions';
+import { FormArticle } from './components/FormArticle/FormArticle';
+import { getArticles, loadingIndicator } from './Actions/actionArticles';
+import { getUser } from './Actions/actionUser';
+import { setCurrentPage } from './Actions/actionPages';
 
 export const App = () => {
-  const { count, user, newUser, currentPage, loading } = useSelector((state) => state);
+  const { count, loading } = useSelector((state) => state.reducerArticle);
+  const { user, newUser } = useSelector((state) => state.reducerUser);
+  const { currentPage } = useSelector((state) => state.reducerPages);
+
   const dispatch = useDispatch();
 
-  console.log(user);
   const { token } = user;
   useEffect(() => {
     dispatch(getArticles(0, token));
@@ -48,8 +52,8 @@ export const App = () => {
           <Route path="/sign-in" component={SignIn} />
           <Route path="/sign-up" component={SignUp} />
           <Route path="/profile" component={EditProfile} />
-          <Route path="/new-article" component={NewArticle} />
-          <Route path="/articles/:slug/edit" component={NewArticle} />
+          <Route path="/new-article" component={FormArticle} />
+          <Route path="/articles/:slug/edit" component={FormArticle} />
           <Route
             path="/articles/:slug"
             exact

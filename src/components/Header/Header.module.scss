@@ -7,7 +7,7 @@
     font-size: 18px;
     font-family: 'Inter';
 
-    
+
 }
 
 .user__name {
@@ -19,7 +19,7 @@
 }
 
 .right__side {
- 
+
     display: flex;
     max-width: 400px;
     justify-content: space-around;
@@ -30,7 +30,7 @@
     }
     .main__header {
         display: flex;
-        
+
     }
     .create__article {
         color: #52C41A;
@@ -61,7 +61,7 @@
         height: 45px;
         border-radius: 50px;
     }
-    
+
     .user__info {
         display: flex;
         align-items: center;
@@ -86,7 +86,7 @@
 }
 
 .sign__in:hover {
- 
+
 
  border: 1px solid #52C41A;
  border-radius: 5px;
@@ -95,7 +95,7 @@
  }
 
 .sign__up:hover {
-    border: 1px solid #52C41A;
+	border: 1px solid #52C41A;
  border-radius: 5px;
  color: #52C41A;
  padding: 15px;
