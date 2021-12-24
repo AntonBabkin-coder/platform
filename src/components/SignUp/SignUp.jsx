@@ -2,13 +2,16 @@ import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { sendNewUser } from '../../Actions/actionUser';
+import { sendNewUser } from '../../reduxResources/actions/actionUser';
 import classes from './SignUp.module.scss';
-import * as selectors from '../../Selectors/Selectors';
+import { selectors } from '../../selectors/selectors';
 
 export const SignUp = memo(() => {
 	const dispatch = useDispatch();
-	const { newUser } = useSelector(selectors.user);
+
+	const {
+		userSelectors: { newUser },
+	} = useSelector(selectors);
 
 	const {
 		register,
@@ -40,7 +43,6 @@ export const SignUp = memo(() => {
 					/>
 					{errors.username && <p>It is requared</p>}
 				</div>
-
 				<div className={classes.input__block}>
 					<label htmlFor="email" className={classes.description__form}>
 						Email address
@@ -48,7 +50,6 @@ export const SignUp = memo(() => {
 					<input {...register('email', { required: true })} id="email" type="email" placeholder="Email address" />
 					{errors.email && <p>It is requared</p>}
 				</div>
-
 				<div className={classes.input__block}>
 					<label htmlFor="password" className={classes.description__form}>
 						Password
@@ -62,7 +63,6 @@ export const SignUp = memo(() => {
 					/>
 					{errors.password && <p>Your password needs to be at least 6 characters.</p>}
 				</div>
-
 				<div className={classes.input__block}>
 					<label htmlFor="repeat__password" className={classes.description__form}>
 						Repeat password
@@ -76,14 +76,12 @@ export const SignUp = memo(() => {
 					/>
 					{errors.repeat__password && <p>Passwords must match</p>}
 				</div>
-
 				<div className={classes.agreement}>
 					<input {...register('check', { required: true })} id="check" type="checkbox" value="check" />
 					<label htmlFor="check">
 						<p>I agree to the processing of my personal information</p>
 					</label>
 				</div>
-
 				<button type="submit" className={classes.button}>
 					Create
 				</button>

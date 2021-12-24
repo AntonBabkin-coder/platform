@@ -5,12 +5,12 @@ export const errorIndicator = (payload) => ({ type: 'ERROR', payload });
 export const loadingIndicator = () => ({ type: 'LOADING' });
 export const saveArticlePage = (res) => ({ type: 'ARTICLE_PAGE', res });
 
-export const ARTICLE_PAGE = 'ARTICLE_PAGE';
-export const ARTICLES = 'ARTICLES';
-export const MAIN_LIKES = 'MAIN_LIKES';
-export const LIKES = 'LIKES';
-export const ERROR = 'ERROR';
-export const LOADING = 'LOADING';
+// export const ARTICLE_PAGE = 'ARTICLE_PAGE';
+// export const ARTICLES = 'ARTICLES';
+// export const MAIN_LIKES = 'MAIN_LIKES';
+// export const LIKES = 'LIKES';
+// export const ERROR = 'ERROR';
+// export const LOADING = 'LOADING';
 
 export const getResource = (url, options) =>
 	fetch(`${process.env.REACT_APP_API}${url}`, options).then((res) => res.json());

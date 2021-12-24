@@ -2,13 +2,16 @@ import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { sendUser } from '../../Actions/actionUser';
+import { sendUser } from '../../reduxResources/actions/actionUser';
 import classes from './SignIn.module.scss';
-import * as selectors from '../../Selectors/Selectors';
+import { selectors } from '../../selectors/selectors';
 
 export const SignIn = memo(() => {
 	const dispatch = useDispatch();
-	const { user } = useSelector(selectors.user);
+
+	const {
+		userSelectors: { user },
+	} = useSelector(selectors);
 
 	const {
 		register,
@@ -31,7 +34,6 @@ export const SignIn = memo(() => {
 					<input {...register('email', { required: true })} id="email" type="email" placeholder="Email address" />
 					{errors.email && <p>It is requared</p>}
 				</div>
-
 				<div className={classes.input__block}>
 					<label htmlFor="password" className={classes.description__form}>
 						Password
@@ -45,11 +47,9 @@ export const SignIn = memo(() => {
 					{user.errors && <p>check your username or password</p>}
 					{errors.password && <p>Your password needs to be at least 6 characters.</p>}
 				</div>
-
 				<button type="submit" className={classes.button}>
 					Login
 				</button>
-
 				<div className={classes.signUp}>
 					Already have an account?<Link to="/sign-up"> Sign Up.</Link>
 				</div>

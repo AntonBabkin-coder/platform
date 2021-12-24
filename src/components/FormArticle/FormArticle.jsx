@@ -1,16 +1,18 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { sendNewArticle, sendEditArticle } from '../../Actions/actionArticles';
+import { sendNewArticle, sendEditArticle } from '../../reduxResources/actions/actionArticles';
 import classes from './FormArticle.module.scss';
-import * as selectors from '../../Selectors/Selectors';
+import { selectors } from '../../selectors/selectors';
 
 export const FormArticle = memo(() => {
 	const dispatch = useDispatch();
 
-	const { user } = useSelector(selectors.user);
-	const { editPage } = useSelector(selectors.pages);
-	const { articlePage } = useSelector(selectors.articles);
+	const {
+		articleSelectors: { articlePage },
+		userSelectors: { user },
+		pagesSelectors: { editPage },
+	} = useSelector(selectors);
 
 	const {
 		control,
@@ -127,7 +129,6 @@ export const FormArticle = memo(() => {
 						</div>
 					</div>
 				</div>
-
 				<button type="submit" className={classes.button}>
 					Send
 				</button>

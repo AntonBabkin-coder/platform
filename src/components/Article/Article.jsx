@@ -5,12 +5,14 @@ import { Spin, Alert } from 'antd';
 import uuid from 'react-uuid';
 import format from 'date-fns/format';
 import classes from './Article.module.scss';
-import { sendLike } from '../../Actions/actionArticles';
-import * as selectors from '../../Selectors/Selectors';
+import { sendLike } from '../../reduxResources/actions/actionArticles';
+import { selectors } from '../../selectors/selectors';
 
 export const Article = memo(() => {
-	const { error, loading, articles } = useSelector(selectors.articles);
-	const { user } = useSelector(selectors.user);
+	const {
+		articleSelectors: { error, loading, articles },
+		userSelectors: { user },
+	} = useSelector(selectors);
 
 	const dispatch = useDispatch();
 

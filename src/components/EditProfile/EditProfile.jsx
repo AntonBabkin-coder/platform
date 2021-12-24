@@ -1,13 +1,16 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { sendEditUser } from '../../Actions/actionUser';
+import { sendEditUser } from '../../reduxResources/actions/actionUser';
 import classes from './EditProfile.module.scss';
-import * as selectors from '../../Selectors/Selectors';
+import { selectors } from '../../selectors/selectors';
 
 export const EditProfile = memo(() => {
 	const dispatch = useDispatch();
-	const { user } = useSelector(selectors.user);
+
+	const {
+		userSelectors: { user },
+	} = useSelector(selectors);
 
 	const {
 		register,
@@ -20,7 +23,6 @@ export const EditProfile = memo(() => {
 	return (
 		<div className={classes.signUp}>
 			<h2 className={classes.title}>Edit Profile</h2>
-
 			<form
 				onSubmit={handleSubmit((data) => {
 					dispatch(sendEditUser(data, user));
@@ -38,14 +40,12 @@ export const EditProfile = memo(() => {
 					/>
 					{errors.username && <p>It is requared</p>}
 				</div>
-
 				<div className={classes.input__block}>
 					<label htmlFor="email" className={classes.description__form}>
 						Email address
 					</label>
 					<input {...register('email')} id="email" type="email" placeholder="Email address" />
 				</div>
-
 				<div className={classes.input__block}>
 					<label htmlFor="pasword" className={classes.description__form}>
 						New pasword
@@ -59,7 +59,6 @@ export const EditProfile = memo(() => {
 					/>
 					{errors.password && <p>Your password needs to be at least 6 characters.</p>}
 				</div>
-
 				<div className={classes.input__block}>
 					<label htmlFor="image" className={classes.description__form}>
 						Avatar image (url)

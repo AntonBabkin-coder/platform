@@ -1,15 +1,15 @@
-// import { reducerArticle } from '../Reducers/reducerArticle';
-// import { reducerIndicator } from '../Reducers/reducerIndicator';
-// import { reducerPages } from '../Reducers/reducerPages';
-// import { reducerUser } from '../Reducers/reducerUser';
+// import { reducerArticle } from '../reduxResources/reducers/reducerArticle';
+// import { reducerIndicator } from '../reduxResources/reducers/reducerIndicator';
+// import { reducerPages } from '../reduxResources/reducers/reducerPages';
+// import { reducerUser } from '../reduxResources/reducers/reducerUser';
 
-// export const selectors = {
-// 	Article: reducerArticle,
-// 	Indicator: reducerIndicator,
-// 	Pages: reducerPages,
-// 	User: reducerUser,
-// };
-export const articles = (state) => state.reducerArticle;
-export const indicator = (state) => state.reducerIndicator;
-export const pages = (state) => state.reducerPages;
-export const user = (state) => state.reducerUser;
+export const selectors = (state) => ({
+	articleSelectors: state.reducerArticle,
+	indicatorSelectors: state.reducerIndicator,
+	pagesSelectors: state.reducerPages,
+	userSelectors: state.reducerUser,
+});
+// export const articleSelectors = (state) => state.reducerArticle;
+// export const indicatorSelectors = (state) => state.reducerIndicator;
+// export const pagesSelectors = (state) => state.reducerPages;
+// export const userSelectors = (state) => state.reducerUser;

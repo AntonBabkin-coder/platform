@@ -11,19 +11,22 @@ import { SignUp } from './components/SignUp/SignUp';
 import { SignIn } from './components/SignIn/SignIn';
 import { EditProfile } from './components/EditProfile/EditProfile';
 import { FormArticle } from './components/FormArticle/FormArticle';
-import { getArticles, loadingIndicator } from './Actions/actionArticles';
-import { getUser } from './Actions/actionUser';
-import { setCurrentPage } from './Actions/actionPages';
-import * as selectors from './Selectors/Selectors';
+import { getArticles, loadingIndicator } from './reduxResources/actions/actionArticles';
+import { getUser } from './reduxResources/actions/actionUser';
+import { setCurrentPage } from './reduxResources/actions/actionPages';
+import { selectors } from './selectors/selectors';
 
 export const App = () => {
-	const { count, loading } = useSelector(selectors.articles);
-	const { user, newUser } = useSelector(selectors.user);
-	const { currentPage } = useSelector(selectors.pages);
+	const {
+		articleSelectors: { count, loading },
+		userSelectors: { user, newUser },
+		pagesSelectors: { currentPage },
+	} = useSelector(selectors);
 
 	const dispatch = useDispatch();
 
 	const { token } = user;
+
 	useEffect(() => {
 		dispatch(getArticles(0, token));
 		dispatch(loadingIndicator());
@@ -65,7 +68,6 @@ export const App = () => {
 					/>
 					{user.username && <Redirect to="/articles" />}
 					{newUser.username && <Redirect to="/sign-in" />}
-
 					<div className="pagination">
 						<Route
 							path="/articles"

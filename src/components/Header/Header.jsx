@@ -2,14 +2,17 @@ import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './Header.module.scss';
-import { signUp, mainPage, signIn, createArticle } from '../../Actions/actionPages';
-import { getArticles } from '../../Actions/actionArticles';
-import { logOut } from '../../Actions/actionUser';
+import { signUp, mainPage, signIn, createArticle } from '../../reduxResources/actions/actionPages';
+import { getArticles } from '../../reduxResources/actions/actionArticles';
+import { logOut } from '../../reduxResources/actions/actionUser';
 import smile from './smile.png';
-import * as selectors from '../../Selectors/Selectors';
+import { selectors } from '../../selectors/selectors';
 
 export const Header = memo(() => {
-	const { user } = useSelector(selectors.user);
+	const {
+		userSelectors: { user },
+	} = useSelector(selectors);
+
 	const dispatch = useDispatch();
 
 	return (

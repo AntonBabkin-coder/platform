@@ -5,19 +5,26 @@ import PropTypes from 'prop-types';
 import uuid from 'react-uuid';
 import format from 'date-fns/format';
 import { Spin } from 'antd';
-import { getArticlesPage, loadingIndicator, deleteArticle, sendLike } from '../../Actions/actionArticles';
-import { editPage } from '../../Actions/actionPages';
-import { showModalPage, hideModalPage } from '../../Actions/action.Indicator';
+import {
+	getArticlesPage,
+	loadingIndicator,
+	deleteArticle,
+	sendLike,
+} from '../../reduxResources/actions/actionArticles';
+import { editPage } from '../../reduxResources/actions/actionPages';
+import { showModalPage, hideModalPage } from '../../reduxResources/actions/actionIndicator';
 import classes from './ArticlePage.module.scss';
 import Atancion from './atancion.svg';
-import * as selectors from '../../Selectors/Selectors';
+import { selectors } from '../../selectors/selectors';
 
 export const ArticlePage = memo(({ itemSlug }) => {
 	const dispatch = useDispatch();
 
-	const { articlePage } = useSelector(selectors.articles);
-	const { user } = useSelector(selectors.user);
-	const { showModal } = useSelector(selectors.indicator);
+	const {
+		articleSelectors: { articlePage },
+		userSelectors: { user },
+		indicatorSelectors: { showModal },
+	} = useSelector(selectors);
 
 	const { token } = user;
 
@@ -46,7 +53,6 @@ export const ArticlePage = memo(({ itemSlug }) => {
 							checked={articlePage.favorited}
 						/>
 						<span className={classes.custom__checkbox} />
-
 						<div className={classes.total__like}>{articlePage.favoritesCount}</div>
 					</label>
 				</div>
