@@ -3,8 +3,6 @@ export const getUser = (res) => ({ type: 'USER', res });
 export const errorIndicator = (payload) => ({ type: 'ERROR', payload });
 export const logOut = () => ({ type: 'LOG_OUT' });
 
-// jsdnskjndkjnsndj
-
 export const getResourceUser = (url, options) =>
 	fetch(`${process.env.REACT_APP_API}${url}`, options).then((res) => res.json());
 
