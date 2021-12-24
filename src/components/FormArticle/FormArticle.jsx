@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { sendNewArticle, sendEditArticle } from '../../reduxResources/actions/actionArticles';
 import classes from './FormArticle.module.scss';
-import { selectors } from '../../selectors/selectors';
+import { formArticleSelectors } from '../../selectors/selectors';
 
 export const FormArticle = memo(() => {
 	const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export const FormArticle = memo(() => {
 		articleSelectors: { articlePage },
 		userSelectors: { user },
 		pagesSelectors: { editPage },
-	} = useSelector(selectors);
+	} = useSelector(formArticleSelectors);
 
 	const {
 		control,

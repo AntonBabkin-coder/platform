@@ -6,12 +6,12 @@ import { signUp, mainPage, signIn, createArticle } from '../../reduxResources/ac
 import { getArticles } from '../../reduxResources/actions/actionArticles';
 import { logOut } from '../../reduxResources/actions/actionUser';
 import smile from './smile.png';
-import { selectors } from '../../selectors/selectors';
+import { headerSelectors } from '../../selectors/selectors';
 
 export const Header = memo(() => {
 	const {
 		userSelectors: { user },
-	} = useSelector(selectors);
+	} = useSelector(headerSelectors);
 
 	const dispatch = useDispatch();
 

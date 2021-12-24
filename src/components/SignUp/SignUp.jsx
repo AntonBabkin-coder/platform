@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { sendNewUser } from '../../reduxResources/actions/actionUser';
 import classes from './SignUp.module.scss';
-import { selectors } from '../../selectors/selectors';
+import { signUpSelectors } from '../../selectors/selectors';
 
 export const SignUp = memo(() => {
 	const dispatch = useDispatch();
 
 	const {
 		userSelectors: { newUser },
-	} = useSelector(selectors);
+	} = useSelector(signUpSelectors);
 
 	const {
 		register,

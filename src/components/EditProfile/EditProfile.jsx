@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { sendEditUser } from '../../reduxResources/actions/actionUser';
 import classes from './EditProfile.module.scss';
-import { selectors } from '../../selectors/selectors';
+import { EditProfileSelectors } from '../../selectors/selectors';
 
 export const EditProfile = memo(() => {
 	const dispatch = useDispatch();
 
 	const {
 		userSelectors: { user },
-	} = useSelector(selectors);
+	} = useSelector(EditProfileSelectors);
 
 	const {
 		register,

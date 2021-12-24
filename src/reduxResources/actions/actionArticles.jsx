@@ -1,9 +1,11 @@
-export const getLikes = (like) => ({ type: 'LIKES', like });
-export const saveLikeMainPage = (article) => ({ type: 'MAIN_LIKES', article });
-export const saveArticles = (articles, count) => ({ type: 'ARTICLES', articles, count });
-export const errorIndicator = (payload) => ({ type: 'ERROR', payload });
-export const loadingIndicator = () => ({ type: 'LOADING' });
-export const saveArticlePage = (res) => ({ type: 'ARTICLE_PAGE', res });
+import { LIKES, MAIN_LIKES, ARTICLES, ERROR, LOADING, ARTICLE_PAGE } from '../actionTypes';
+
+export const getLikes = (like) => ({ type: LIKES, like });
+export const saveLikeMainPage = (article) => ({ type: MAIN_LIKES, article });
+export const saveArticles = (articles, count) => ({ type: ARTICLES, articles, count });
+export const errorIndicator = (payload) => ({ type: ERROR, payload });
+export const loadingIndicator = () => ({ type: LOADING });
+export const saveArticlePage = (res) => ({ type: ARTICLE_PAGE, res });
 
 export const getResource = (url, options) =>
 	fetch(`${process.env.REACT_APP_API}${url}`, options).then((res) => res.json());

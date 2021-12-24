@@ -15,7 +15,7 @@ import { editPage } from '../../reduxResources/actions/actionPages';
 import { showModalPage, hideModalPage } from '../../reduxResources/actions/actionIndicator';
 import classes from './ArticlePage.module.scss';
 import Atancion from './atancion.svg';
-import { selectors } from '../../selectors/selectors';
+import { articlePageSelectors } from '../../selectors/selectors';
 
 export const ArticlePage = memo(({ itemSlug }) => {
 	const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export const ArticlePage = memo(({ itemSlug }) => {
 		articleSelectors: { articlePage },
 		userSelectors: { user },
 		indicatorSelectors: { showModal },
-	} = useSelector(selectors);
+	} = useSelector(articlePageSelectors);
 
 	const { token } = user;
 

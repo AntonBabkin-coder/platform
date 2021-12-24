@@ -14,14 +14,14 @@ import { FormArticle } from './components/FormArticle/FormArticle';
 import { getArticles, loadingIndicator } from './reduxResources/actions/actionArticles';
 import { getUser } from './reduxResources/actions/actionUser';
 import { setCurrentPage } from './reduxResources/actions/actionPages';
-import { selectors } from './selectors/selectors';
+import { appSelectors } from './selectors/selectors';
 
 export const App = () => {
 	const {
 		articleSelectors: { count, loading },
 		userSelectors: { user, newUser },
 		pagesSelectors: { currentPage },
-	} = useSelector(selectors);
+	} = useSelector(appSelectors);
 
 	const dispatch = useDispatch();
 
